@@ -99,7 +99,7 @@ class EventListener implements Listener{
         $p = $e->getPlayer();
         if($this->HGApi->getStorage()->isPlayerSet($p)){
             $game = $this->HGApi->getStorage()->getPlayerGame($p);
-            if($game !== null) $this->HGApi->getGlobalManager()->getGameManager($game)->removePlayerWithoutTeleport($p, true);
+            if($game !== null) $this->HGApi->getGlobalManager()->getGameManager($game)->removePlayer($p, true);
         }
         elseif($this->HGApi->getStorage()->isPlayerWaiting($p)){
             $game = $this->HGApi->getStorage()->getWaitingPlayerGame($p);
@@ -114,7 +114,7 @@ class EventListener implements Listener{
         if($this->HGApi->getStorage()->isPlayerSet($p)){
             $game = $this->HGApi->getStorage()->getPlayerGame($p);
             if($game !== null){
-                $this->HGApi->getGlobalManager()->getGameManager($game)->removePlayer($p);
+                $this->HGApi->getGlobalManager()->getGameManager($game)->removePlayerWithoutTeleport($p);
             }
             $count = $this->HGApi->getStorage()->getPlayersInGameCount($game);
             if($count > 1){
@@ -131,5 +131,12 @@ class EventListener implements Listener{
         if($this->HGApi->getStorage()->isPlayerWaiting($e->getPlayer())){
             $e->setCancelled();
         }
+    }
+    /**
+     * @param PlayerJoinEvent $e
+     */
+    public function onSpawn(PlayerJoinEvent $e){
+      $p = $e->getPlayer();
+      $p->getInventory()->clearAll();
     }
 }
