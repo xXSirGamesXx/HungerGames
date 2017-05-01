@@ -10,6 +10,7 @@ use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\Player;
 use pocketmine\tile\Sign;
 class EventListener implements Listener{
