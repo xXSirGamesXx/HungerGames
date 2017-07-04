@@ -33,8 +33,13 @@ class WaitingToStartTask extends PluginTask{
         }
         if($this->seconds > 0) {
             if ($count >= $this->game->getMinimumPlayers()) {
-                $message = str_replace(["%seconds%", "%game%"], [$this->seconds, $this->game->getName()], Msg::getHGMessage("hg.message.waiting"));
-                $this->HGApi->getGlobalManager()->getGameManagerByName($this->game->getName())->sendGamePopup(Msg::color($message));
+                $player = $this->HGApi->getStorage()->getPlayersInGame();
+                $times = ("title " . $player . " 20 3600 20");
+                $subtitle = ("title subtitle " . $player . " &l&7Starts in &c" . $seconds . " &7seconds");
+                $title = ("title title " . $player . " &l&cThe Game");
+                $this->HGApi->getGlobalManager()->getGameManagerByName($this->game->getName())->dispatchCommand($player, $times);
+                $this->HGApi->getGlobalManager()->getGameManagerByName($this->game->getName())->dispatchCommand($player, $subtitle);
+                $this->HGApi->getGlobalManager()->getGameManagerByName($this->game->getName())->dispatchCommand($player, $title);
                 foreach ($this->HGApi->getScriptManager()->getScripts() as $script) {
                     if (!$script->isEnabled()) continue;
                     $script->whileWaitingToStart($this->HGApi->getStorage()->getPlayersInGame($this->game), $this->game);
