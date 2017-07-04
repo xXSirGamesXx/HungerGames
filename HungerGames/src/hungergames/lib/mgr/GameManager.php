@@ -135,11 +135,11 @@ class GameManager{
     public function sendGamePopup($message){
         $pig = $this->HGApi->getStorage()->getPlayersInGame($this->getGame());
         for($i = 0; $i < count($pig); ++$i){
-            $pig[$i]->sendPopup($message);
+            $pig[$i]->sendMessage($message);
         }
         $piWg = $this->HGApi->getStorage()->getPlayersInWaitingGame($this->getGame());
         for($i = 0; $i < count($piWg); ++$i){
-            $piWg[$i]->sendPopup($message);
+            $piWg[$i]->sendMessage($message);
         }
     }
 
