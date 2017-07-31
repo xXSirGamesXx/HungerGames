@@ -12,7 +12,7 @@ class LoadGamesTask extends PluginTask{
     /**
      * @param $currentTick
      */
-    public function onRun($currentTick){
+    public function onRun(int $currentTick){
         foreach($this->HGApi->getAllGameResources() as $game){
             $this->HGApi->getGlobalManager()->load($game);
         }

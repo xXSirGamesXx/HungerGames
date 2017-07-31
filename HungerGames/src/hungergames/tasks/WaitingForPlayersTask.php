@@ -18,7 +18,7 @@ class WaitingForPlayersTask extends PluginTask{
     /**
      * @param $tick
      */
-    public function onRun($tick){
+    public function onRun(int $tick){
         $count = $this->HGApi->getStorage()->getAllWaitingPlayersInGameCount($this->game);
         if ($count == 0) {
             $this->HGApi->getGlobalManager()->getGameManager($this->game)->setStatus("open");

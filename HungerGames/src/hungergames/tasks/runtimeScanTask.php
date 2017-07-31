@@ -11,7 +11,7 @@ class runtimeScanTask extends PluginTask{
      *
      * @return void
      */
-    public function onRun($currentTick){
+    public function onRun(int $currentTick){
         if(Loader::getInstance()->getStorage()->scanOverload()){
             Loader::getInstance()->getLogger()->emergency(exc::_("%%cPlease restart server to prevent it from overloading.%%cGame load has reached max players size (600 players)."));
         }

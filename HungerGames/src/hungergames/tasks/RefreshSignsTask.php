@@ -12,7 +12,7 @@ class RefreshSignsTask extends PluginTask{
     /**
      * @param $currentTick
      */
-    public function onRun($currentTick){
+    public function onRun(int $currentTick){
         $this->HGApi->getSignManager()->refreshAllSigns();
     }
 }
