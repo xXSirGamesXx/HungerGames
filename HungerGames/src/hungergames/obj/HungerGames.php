@@ -16,9 +16,11 @@ class HungerGames extends Game{
     /** @var float */
     public $waitingSeconds;
     /** @var Level */
+    public $winMoney;	
+    /** @var Position */	
     public $gameLevel;
-    /** @var Position */
-    public $lobbyPos;
+    /** @var float */
+    public $lobbyPos;	
     /** @var Position */
     public $deathMatchPos;
     /** @var Position[] */
@@ -47,6 +49,7 @@ class HungerGames extends Game{
         $this->max = exc::stringToInteger($game->get("max_players"));
         $this->gameSeconds = floatval($game->get("game_seconds"));
         $this->waitingSeconds = floatval($game->get("waiting_seconds"));
+	$this->winMoney = $game->get("winMoney");
         Loader::getInstance()->getServer()->loadLevel($game->get("game_level"));
         $this->gameLevel = Loader::getInstance()->getServer()->getLevelByName($game->get("game_level"));
         $lobby_pos = $game->get("lobby_pos");
@@ -113,6 +116,16 @@ class HungerGames extends Game{
     public function getWaitingSeconds(){
         return $this->waitingSeconds;
     }
+	
+    /**
+     * Money on win
+     *
+     * @return float
+     */
+    public function getWinMoney(){
+        return $this->winMoney;
+    }	
+	
     /**
      * Level of game
      *
