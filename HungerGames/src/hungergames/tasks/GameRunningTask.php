@@ -23,7 +23,7 @@ class GameRunningTask extends PluginTask{
     /**
      * @param $currentTick
      */
-    public function onRun($currentTick){
+    public function onRun(int $currentTick){
         $count = $this->HGApi->getStorage()->getPlayersInGameCount($this->game);
         --$this->seconds;
         if($this->game->getGameSeconds() - $this->seconds <= $this->game->refillAfter()){
@@ -69,27 +69,31 @@ class GameRunningTask extends PluginTask{
             $this->HGApi->getGlobalManager()->getGameManager($this->game)->refresh();
             return;
         }
-        if($count >= 2 and $this->seconds <= 0){
-            $this->HGApi->getServer()->getScheduler()->cancelTask($this->getTaskId());
-            $this->HGApi->getGlobalManager()->getGameManager($this->game)->setStatus("final");
-            foreach($this->HGApi->getStorage()->getPlayersInGame($this->game) as $p){
-                $p->teleport($this->game->getDeathMatchPosition());
-            }
-            $msg = Msg::getHGMessage("hg.message.deathMatch");
-            $msg = str_replace("%game%", $this->game->getName(), $msg);
-            $this->HGApi->getGlobalManager()->getGameManagerByName($this->game->getName())->sendGameMessage(Msg::color($msg));
-            foreach ($this->HGApi->getScriptManager()->getScripts() as $script) {
-                if (!$script->isEnabled()) continue;
-                $script->onDeathMatchStart($this->HGApi->getStorage()->getPlayersInGame($this->game), $this->game);
-            }
-            $task = new DeathMatchTask($this->HGApi, $this->game);
-            $h = $this->HGApi->getServer()->getScheduler()->scheduleRepeatingTask($task, 20);
-            $task->setHandler($h);
-            return;
-        }
+		if($this->game->hasDM() == false){
+			return false;
+		}else{
+			if($count >= 2 and $this->seconds <= 0){
+				$this->HGApi->getServer()->getScheduler()->cancelTask($this->getTaskId());
+				$this->HGApi->getGlobalManager()->getGameManager($this->game)->setStatus("final");
+				foreach($this->HGApi->getStorage()->getPlayersInGame($this->game) as $p){
+					$p->teleport($this->game->getDeathMatchPosition());
+				}
+				$msg = Msg::getHGMessage("hg.message.deathMatch");
+				$msg = str_replace("%game%", $this->game->getName(), $msg);
+				$this->HGApi->getGlobalManager()->getGameManagerByName($this->game->getName())->sendGameMessage(Msg::color($msg));
+				foreach ($this->HGApi->getScriptManager()->getScripts() as $script) {
+					if (!$script->isEnabled()) continue;
+					$script->onDeathMatchStart($this->HGApi->getStorage()->getPlayersInGame($this->game), $this->game);
+				}
+				$task = new DeathMatchTask($this->HGApi, $this->game);
+				$h = $this->HGApi->getServer()->getScheduler()->scheduleRepeatingTask($task, 20);
+				$task->setHandler($h);
+				return true;
+			}
         $msg = Msg::getHGMessage("hg.message.dmTime");
         $msg = str_replace(["%game%", "%seconds%"], [$this->game->getName(), $this->seconds], $msg);
         $msg = Msg::color($msg);
         $this->HGApi->getGlobalManager()->getGameManager($this->game)->sendGamePopup($msg);
-    }
+		}
+	}
 }

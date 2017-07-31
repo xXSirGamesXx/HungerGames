@@ -19,7 +19,7 @@ class DeathMatchTask extends PluginTask{
     /**
      * @param $currentTick
      */
-    public function onRun($currentTick){
+    public function onRun(int $currentTick){
         $count = $this->HGApi->getStorage()->getPlayersInGameCount($this->game);
         if($count == 1){
             $this->HGApi->getServer()->getScheduler()->cancelTask($this->getTaskId());
