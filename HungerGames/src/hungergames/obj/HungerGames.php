@@ -15,6 +15,8 @@ class HungerGames extends Game{
     public $gameSeconds;
     /** @var float */
     public $waitingSeconds;
+    /** @var bool */
+    public $economysupport;
     /** @var Level */
     public $winMoney;	
     /** @var Position */	
@@ -49,6 +51,7 @@ class HungerGames extends Game{
         $this->max = exc::stringToInteger($game->get("max_players"));
         $this->gameSeconds = floatval($game->get("game_seconds"));
         $this->waitingSeconds = floatval($game->get("waiting_seconds"));
+	$this->economysupport = $game->get("economy");
 	$this->winMoney = $game->get("winMoney");
         Loader::getInstance()->getServer()->loadLevel($game->get("game_level"));
         $this->gameLevel = Loader::getInstance()->getServer()->getLevelByName($game->get("game_level"));
@@ -118,10 +121,22 @@ class HungerGames extends Game{
     }
 	
     /**
+     * See if economy is enabled or not.
+     *
+     * @return float
+     */
+	
+    public function getEconomySupport(){
+        return $this->economysupport;
+    }	
+		
+	
+    /**
      * Money on win
      *
      * @return float
      */
+	
     public function getWinMoney(){
         return $this->winMoney;
     }	
