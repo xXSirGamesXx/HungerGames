@@ -25,6 +25,8 @@ class HungerGames extends Game{
     private $slots;
     /** @var bool */
     private $isSkyWars;
+    /** @var bool */
+    private $hasDM;	
     /** @var Item[] */
     private $chestItems;
     /** @var float */
@@ -57,6 +59,7 @@ class HungerGames extends Game{
         $this->deathMatchPos = new Position(floatval($dm_pos["x"]), floatval($dm_pos["y"]), floatval($dm_pos["z"]), $dm_level);
         $this->slots = $game->get("slots");
         $this->isSkyWars = $game->get("is_sky_wars");
+		$this->hasDM = $game->get("hasDM");
         $this->chestItems = $game->get("chest_items");
         $this->refillAfter = $game->get("refill_chests_after_seconds");
         $this->signList = $game->get("sign_list");
@@ -154,6 +157,17 @@ class HungerGames extends Game{
     public function isSkyWars(){
         return strtolower($this->isSkyWars);
     }
+	
+    /**
+     * Returns if game has a deathmatch or not.
+     *
+     * @return bool
+     */	
+	 
+    public function hasDM(){
+        return strtolower($this->hasDM);
+    }
+	
     /**
      * Returns after how much time the chests are refilled
      *
