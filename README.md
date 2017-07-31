@@ -188,7 +188,7 @@ class ExampleScript extends \hungergames\api\scripts\HGAPIScript{
 </details>
 
 ===
-BIG NOTE: after every change you will have to run the command /reload
+BIG NOTE: after every change you will have to run the command /hg reload
 ===
 
 Commands:
