@@ -298,6 +298,7 @@ class Loader extends PluginBase{
                 "max_players" => (int)8,
                 "game_seconds" =>  (float)60*5,
                 "waiting_seconds" => (float)60,
+		"economy" => (bool)false,
 		"winMoney" => (float)0,
                 "game_level" => "world",
                 "refill_chest_after_seconds" => (float)60*2.5,
