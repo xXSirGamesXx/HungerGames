@@ -34,7 +34,18 @@ class Loader extends PluginBase{
             self::$instance = $this;
         }
     }
-
+	public Function reloadHG(){
+        $this->messages = new Config($this->dataPath()."messages.yml", Config::YAML, Msg::getDefaultHGMessages());
+        $t->setHandler($h);
+        @mkdir($this->dataPath());
+        @mkdir($this->dataPath()."arenas/");
+        @mkdir($this->dataPath()."resources/");
+        @mkdir($this->dataPath()."scripts/");
+        @mkdir($this->dataPath()."scriptConfigs/");
+        @mkdir($this->dataPath()."mapBackups/");
+        $this->scriptManager->loadScripts();
+	}
+	
     public function onEnable(){
         $this->storage = new GameStorage();
         $this->globalManager = new GlobalManager($this);
@@ -282,6 +293,7 @@ class Loader extends PluginBase{
                 "sign_line_3" => "&aGame: &f{game}",
                 "sign_line_4" => "&eStatus: {status}",
                 "is_sky_wars" => "no",
+				"hasDM" => (bool)true,
                 "min_players" => (int)2,
                 "max_players" => (int)8,
                 "game_seconds" =>  (float)60*5,
