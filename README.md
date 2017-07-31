@@ -5,7 +5,7 @@ BIG NOTE
 ---------
 COMPILING IT WITH pmt.mcpe.me WILL MAKE THE PLUGIN CORRUPTED. DOWNLOAD FROM _RELEASES_ [HERE](https://github.com/InfinityGamers/HungerGames-UPDATED/releases/latest)
 
-A HungerGames plugin for PocketMine-MP developed by xBeastMode
+A HungerGames plugin for PocketMine-MP developed by xBeastMode continued by xXSirGamesXx
 --------------------------------------------------------------
 
 #New Features? 
@@ -24,7 +24,7 @@ When you join a game the plugin will automatically backup the map.
 #How to setup a join sign?
 
 on the first line set the line to "hg" and on the second line set the line to the name of your game.
-Next, reload your server with the "/reload" command.
+Next, reload your server with the "/hg reload" command.
 The sign should now refresh automatically and you'll be able to join.
 
 #Future updates? 
