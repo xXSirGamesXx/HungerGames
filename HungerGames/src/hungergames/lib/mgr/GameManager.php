@@ -132,10 +132,11 @@ class GameManager{
      *
      * @param $message
      */
+	 
     public function sendGamePopup($message){
         $pig = $this->HGApi->getStorage()->getPlayersInGame($this->getGame());
         for($i = 0; $i < count($pig); ++$i){
-            $pig[$i]->sendMessage($message);
+            $pig[$i]->sendTip($message);
         }
         $piWg = $this->HGApi->getStorage()->getPlayersInWaitingGame($this->getGame());
         for($i = 0; $i < count($piWg); ++$i){
@@ -143,21 +144,6 @@ class GameManager{
         }
     }
 	
-    /**
-     * Sends game players popup
-     *
-     * @param $message
-     */
-    public function sendGameTip($message){
-        $pig = $this->HGApi->getStorage()->getPlayersInGame($this->getGame());
-        for($i = 0; $i < count($pig); ++$i){
-            $pig[$i]->sendMessage($message);
-        }
-        $piWg = $this->HGApi->getStorage()->getPlayersInWaitingGame($this->getGame());
-        for($i = 0; $i < count($piWg); ++$i){
-            $piWg[$i]->sendTip($message);
-        }
-    }
 
     /**
      * Adds player into game
